@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Players: Rushing</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Team</th>
+      <th>Position</th>
+      <th>Attempts/game</th>
+      <th>Total attempts</th>
+      <th>Total yards</th>
+      <th>Average Yards/Attempt</th>
+      <th>Yards/Game</th>
+      <th>Rushing Touchdowns</th>
+      <th>Longest Rush</th>
+      <th>Longest Rush is touchdown</th>
+      <th>First Downs</th>
+      <th>First Downs %</th>
+      <th>20+ Yards</th>
+      <th>40+ Yards</th>
+      <th>Fumbles</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.name %></td>
+        <td><%= player.team %></td>
+        <td><%= player.position %></td>
+        <td><%= player.attempts_per_game %></td>
+        <td><%= player.total_attempts %></td>
+        <td><%= player.total_yards %></td>
+        <td><%= player.average_yards_per_attempt %></td>
+        <td><%= player.yards_per_game %></td>
+        <td><%= player.rushing_touchdowns %></td>
+        <td><%= player.longest_rush %></td>
+        <td><%= player.longest_rush_is_touchdown %></td>
+        <td><%= player.first_downs %></td>
+        <td><%= player.first_downs_percent %></td>
+        <td><%= player.twenty_plus %></td>
+        <td><%= player.forty_plus %></td>
+        <td><%= player.fumbles %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
