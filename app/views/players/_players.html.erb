@@ -1,0 +1,34 @@
+<% models = @model.order(:name).page(params[:page]) %>
+<% fields = @model.pluck(:field, :field).compact.uniq.sort %>
+
+<% sort_order_field = [:name] %>
+
+
+<%= search_form_for @search, remote: true, url: request.path, :method => :get,
+                    id: 'player-form',
+                    onchange: "$('#player-form').submit();" do |f| %>
+
+  <h1>Model <%= f.submit 'Search', class: 'inline btn btn-primary' %></h1>
+  <table class="table table-striped table-bordered table-condensed table-hover">
+    <thead>
+    <tr>
+      <th class="text-center"><%= sort_link @search, :searchable, sort_order_field, "Searchable", remote: true, method: :get  %></th>
+      <th class="text-center"><%= sort_link @search, :field, sort_order_field, "Field", remote: true, method: :get  %></th>
+    </tr>
+    <tr>
+      <th><%= f.search_field :searchable_cont %></th>
+      <th><%= f.select :field_cont, fields, include_blank: true %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% model.each do |model| %>
+      <tr>
+        <td><%= model.try(:searchable) %></td>
+        <td><%= model.try(:field) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%= paginate models %>
+<p><%= page_entries_info models, :entry_name => 'model' %></p>

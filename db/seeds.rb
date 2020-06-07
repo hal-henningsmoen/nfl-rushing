@@ -22,7 +22,6 @@ def is_rush_td?(input)
   input.to_s.upcase.ends_with?('T')
 end
 
-DatabaseCleaner.clean_with(:truncation)
 path = File.join(File.dirname(__FILE__), "./seeds/rushing.json")
 records = JSON.parse(File.read(path))
 records.each do |rec|
