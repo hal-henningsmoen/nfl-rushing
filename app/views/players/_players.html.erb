@@ -1,34 +1,55 @@
-<% models = @model.order(:name).page(params[:page]) %>
-<% fields = @model.pluck(:field, :field).compact.uniq.sort %>
-
-<% sort_order_field = [:name] %>
-
-
-<%= search_form_for @search, remote: true, url: request.path, :method => :get,
-                    id: 'player-form',
-                    onchange: "$('#player-form').submit();" do |f| %>
-
-  <h1>Model <%= f.submit 'Search', class: 'inline btn btn-primary' %></h1>
-  <table class="table table-striped table-bordered table-condensed table-hover">
-    <thead>
-    <tr>
-      <th class="text-center"><%= sort_link @search, :searchable, sort_order_field, "Searchable", remote: true, method: :get  %></th>
-      <th class="text-center"><%= sort_link @search, :field, sort_order_field, "Field", remote: true, method: :get  %></th>
-    </tr>
-    <tr>
-      <th><%= f.search_field :searchable_cont %></th>
-      <th><%= f.select :field_cont, fields, include_blank: true %></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% model.each do |model| %>
-      <tr>
-        <td><%= model.try(:searchable) %></td>
-        <td><%= model.try(:field) %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+<%= search_form_for @search do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name_cont, class: 'form-control' %>
+  <%= f.submit class: 'btn btn-primary' %>
 <% end %>
-<%= paginate models %>
-<p><%= page_entries_info models, :entry_name => 'model' %></p>
+<table class="table table-striped table-bordered table-condensed table-hover">
+  <thead class="thead-dark">
+
+
+  <tr>
+    <th><%= link_to players_path(request.parameters.merge({format: 'csv'})), class: 'btn btn-primary' do %> Export <% end %></th>
+    <th>Name</th>
+    <th>Team</th>
+    <th>Position</th>
+    <th>Attempts/game</th>
+    <th>Total attempts</th>
+    <th><%= sort_link(@search, :total_yards) %></th>
+    <th>Average Yards/Attempt</th>
+    <th>Yards/Game</th>
+    <th><%= sort_link(@search, :rushing_touchdowns) %></th>
+    <th><%= sort_link(@search, :longest_rush) %></th>
+    <th>Longest Rush is touchdown</th>
+    <th>First Downs</th>
+    <th>First Downs %</th>
+    <th>20+ Yards</th>
+    <th>40+ Yards</th>
+    <th>Fumbles</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @players.each do |player| %>
+    <tr>
+      <td></td>
+      <td><%= player.name %></td>
+      <td><%= player.team %></td>
+      <td><%= player.position %></td>
+      <td><%= player.attempts_per_game %></td>
+      <td><%= player.total_attempts %></td>
+      <td><%= player.total_yards %></td>
+      <td><%= player.average_yards_per_attempt %></td>
+      <td><%= player.yards_per_game %></td>
+      <td><%= player.rushing_touchdowns %></td>
+      <td><%= player.longest_rush %></td>
+      <td><%= player.longest_rush_is_touchdown %></td>
+      <td><%= player.first_downs %></td>
+      <td><%= player.first_downs_percent %></td>
+      <td><%= player.twenty_plus %></td>
+      <td><%= player.forty_plus %></td>
+      <td><%= player.fumbles %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @players, list_classes: %w(pagination justify-content-end) %>
