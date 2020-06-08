@@ -12,118 +12,18 @@
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/players", type: :request do
-  # Player. As you add validations to Player, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  describe "GET /index" do
-    it "renders a successful response" do
-      Player.create! valid_attributes
-      get players_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /show" do
-    it "renders a successful response" do
-      player = Player.create! valid_attributes
-      get player_url(player)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_player_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "render a successful response" do
-      player = Player.create! valid_attributes
-      get edit_player_url(player)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Player" do
-        expect {
-          post players_url, params: { player: valid_attributes }
-        }.to change(Player, :count).by(1)
-      end
-
-      it "redirects to the created player" do
-        post players_url, params: { player: valid_attributes }
-        expect(response).to redirect_to(player_url(Player.last))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new Player" do
-        expect {
-          post players_url, params: { player: invalid_attributes }
-        }.to change(Player, :count).by(0)
-      end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post players_url, params: { player: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested player" do
-        player = Player.create! valid_attributes
-        patch player_url(player), params: { player: new_attributes }
-        player.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the player" do
-        player = Player.create! valid_attributes
-        patch player_url(player), params: { player: new_attributes }
-        player.reload
-        expect(response).to redirect_to(player_url(player))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        player = Player.create! valid_attributes
-        patch player_url(player), params: { player: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested player" do
-      player = Player.create! valid_attributes
-      expect {
-        delete player_url(player)
-      }.to change(Player, :count).by(-1)
-    end
-
-    it "redirects to the players list" do
-      player = Player.create! valid_attributes
-      delete player_url(player)
-      expect(response).to redirect_to(players_url)
-    end
-  end
-end
+ RSpec.describe "/players", type: :request do
+   describe "GET /index" do
+     let(:valid_attributes) do
+       { name: 'Name', team: 'Team', position: 'Position', attempts_per_game: 2.5, total_attempts: 3, total_yards: 4,
+         average_yards_per_attempt: 5.5, yards_per_game: 6.5, rushing_touchdowns: 7, longest_rush: 8,
+         longest_rush_is_touchdown: false, first_downs: 9, first_downs_percent: 10.5, twenty_plus: 11,
+         forty_plus: 12, fumbles: 13 }
+     end
+     it 'renders a successful response' do
+       Player.create! valid_attributes
+       get players_url
+       expect(response).to be_successful
+     end
+   end
+ end
