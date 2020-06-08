@@ -54,4 +54,31 @@ We will evaluate you on your ability to solve the problem defined in the require
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
 ### Installation and running this solution
-... TODO
+####Prerequisites
+* ruby 2.7.1, 
+* node v12.14.0
+* rails 6.0.3.1
+* I used postgresql for my database but this should work with most relational databases rails supports
+
+From the rails root directory run:
+`bundle install`
+
+When this is successful
+Copy config/database.yml.sample to config/database.yml.  If you are not using postgresql or require username and 
+ password for development or testing modify the configuration to match your setup then run:
+`rake db:setup`
+This will setup and seed the development database.
+
+Run the test suite using
+`rake spec`
+
+Start the application using:
+`rails s`
+
+If you are running this locally access the application at:
+http://localhost:3000
+
+
+
+
+
