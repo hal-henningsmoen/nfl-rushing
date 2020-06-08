@@ -61,21 +61,23 @@ If you have any questions regarding requirements, do not hesitate to email your 
 * I used postgresql for my database but this should work with most relational databases rails supports
 
 From the rails root directory run:
-`bundle install`
+* `bundle install`
+* `yarn install --check-files`
 
-When this is successful
+When this is successful:
 Copy config/database.yml.sample to config/database.yml.  If you are not using postgresql or require username and 
- password for development or testing modify the configuration to match your setup then run:
-`rake db:setup`
+ password for development or testing, modify the configuration to match your setup then run:
+* `rake db:setup`
+
 This will setup and seed the development database.
 
 Run the test suite using
-`rake spec`
+* `rake spec`
 
 Start the application using:
-`rails s`
+* `rails s`
 
-If you are running this locally access the application at:
+If you are running this locally, access the application at:
 http://localhost:3000
 
 
